@@ -2,7 +2,6 @@ package it;
 
 import static com.jayway.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -25,13 +24,13 @@ public class CreateUserIT {
 	@Test
 	public void shouldCreateUsers() throws Exception {
 		service.createUser(USERNAME_1);
-		await().pollDelay(2, TimeUnit.SECONDS).until(() -> store.all().size(), is(1));
+		await().atMost(2, TimeUnit.SECONDS);
 		User user1 = store.byName(USERNAME_1);
 		assertThat(user1.getUserName(), equalTo(USERNAME_1));
 		assertThat(user1.getId(), notNullValue());
 
 		service.createUser(USERNAME_2);
-		await().pollDelay(2, TimeUnit.SECONDS).until(() -> store.all().size(), is(2));
+		await().pollDelay(2, TimeUnit.SECONDS).until(() -> store.all().size() == 2);
 		User user2 = store.byName(USERNAME_2);
 		assertThat(user2.getUserName(), equalTo(USERNAME_2));
 		assertThat(user2.getId(), notNullValue());
