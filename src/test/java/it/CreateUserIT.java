@@ -18,8 +18,9 @@ public class CreateUserIT {
 	private static final String USERNAME_1 = "xoxo";
 	private static final String USERNAME_2 = "fooo";
 
-	UserService service = Application.CREATE.getUserService();
-	UserStore store = Application.CREATE.getUserStore();
+	Application app = Application.CREATE;
+	UserService service = app.getUserService();
+	UserStore store = app.getUserStore();
 
 	@Test
 	public void shouldCreateUsers() throws Exception {
